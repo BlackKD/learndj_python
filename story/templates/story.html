@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block header %}
+<h2>{{ story.title }}</h2>
+<p>简介：{{ story.brief }}</p>
+{% endblock %} {% block content %}
+<table class='table'>
+    {% for chapter in story.chapter_set.all %}
+    <tr>
+        <td>
+            Chapter{{ forloop.counter }}：
+            {% if chapter.writter == request.user %} {% include 'chapter.html' %}
+            <a href='' data-toggle="modal" data-target="#changechapter{{ chapter.id }}">{{ chapter.subtitle }}</a> 
+            {% else %}
+            {{ chapter.subtitle }}
+            {% endif %}
+        </td>
+    </tr>
+    <tr>
+        <td>
+            作者：
+            <a href="{% url 'author' chapter.writter.username %}">{{ chapter.writter.username }}</a>
+        </td>
+    </tr>
+    <tr>
+        <td>{{ chapter.content }}</td>
+    </tr>
+    {% endfor %}
+</table>
+{% if request.user.is_authenticated %}
+{% include 'newchapter.html' %}
+<a href='' data-toggle="modal" data-target="#newchapter">添加章节</a>
+{% endif %} 
+{% endblock %}

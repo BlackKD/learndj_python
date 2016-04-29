@@ -1,0 +1,25 @@
+{% extends 'auth.html' %}
+
+{% block dialog_id %}login{% endblock %}
+
+{% block dialog_name %}登录{% endblock %}
+
+{% block dialog_form %}
+    <form class="form-login" method="POST" action="{% url 'login' %}">
+        {% if login_error %}
+            <input class="form-control input-lg" maxlength="16" name="username" placeholder="username" value="{{login_error.username}}" type="text" />
+            <input class="form-control input-lg" maxlength="16" name="password" placeholder="password" value="{{login_error.password}}" type="password" />
+            <script>$('#login').modal('show');</script>
+            <div class="form-group has-error">
+                <span class="help-block">{{ login_error.error_message }}</span>
+            </div>
+        {% else %}
+            <input class="form-control input-lg" maxlength="16" name="username" placeholder="username" type="text" />
+            <input class="form-control input-lg" maxlength="16" name="password" placeholder="password" type="password" />
+        {% endif %}
+        {% csrf_token %}
+        <hr />
+        <button class="btn btn-primary" type="submit">登录</button>
+        <button class="btn btn-primary" type="reset">重置</button>
+     </form>
+{% endblock %}

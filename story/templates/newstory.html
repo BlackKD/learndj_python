@@ -1,0 +1,16 @@
+{% extends 'newstorch.html' %} 
+
+{% block dialog_id %}newstory{% endblock %}
+
+{% block dialog_name %}创建故事{% endblock %} 
+
+{% block dialog_form %}
+    <form method="POST" action="{% url 'newstory' %}">
+        <input class="form-control input-lg" id="id_title" name="title" placeholder="title" type="text" required/>
+        <textarea class="form-control input-lg" id="id_brief" name="brief" placeholder="brief" type="text" required></textarea>
+        {% csrf_token %}
+        <hr />
+        <button type="submit">发布</button>
+        <button type="reset">重置</button>
+    </form>
+{% endblock %}

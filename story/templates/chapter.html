@@ -1,0 +1,17 @@
+{% extends 'newstorch.html' %} 
+
+{% block dialog_id %}changechapter{{ chapter.id }}{% endblock %}
+
+{% block dialog_name %}修改章节{% endblock %} 
+
+{% block dialog_form %}
+    <form method="POST" action="{% url 'changechapter' story.id chapter.id %}">
+        <input class="form-control input-lg" id="id_subtitle" name="subtitle" placeholder="subtitle" type="text" 
+               value="{{ chapter.subtitle }}" required/>
+        <textarea class="form-control input-lg" id="id_content" name="content" placeholder="content" type="text" required>{{ chapter.content }} </textarea>
+        {% csrf_token %}
+        <hr />
+        <button type="submit">发布</button>
+        <button type="reset">重置</button>
+    </form>
+{% endblock %}

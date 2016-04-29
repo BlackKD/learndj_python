@@ -1,0 +1,16 @@
+{% extends 'newstorch.html' %} 
+
+{% block dialog_id %}newchapter{% endblock %}
+
+{% block dialog_name %}添加章节{% endblock %} 
+
+{% block dialog_form %}
+    <form method="POST" action="{% url 'newchapter' story.id %}">
+        <input class="form-control input-lg" id="id_subtitle" name="subtitle" placeholder="subtitle" type="text" required/>
+        <textarea class="form-control input-lg" id="id_content" name="content" placeholder="content" type="text" required></textarea>
+        {% csrf_token %}
+        <hr />
+        <button type="submit">发布</button>
+        <button type="reset">重置</button>
+    </form>
+{% endblock %}

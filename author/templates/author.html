@@ -1,0 +1,32 @@
+{% extends 'base.html' %} {% block header %}
+<h2>{{ user.username }}'s Stories</h2>
+{% for story in user.story_set.all %}
+<table class='table'>
+    <tr>
+        <td><a href="{% url 'viewstory' story.id %}">{{ story.title }}</a></td>
+    </tr>
+    <tr>
+        <td>贡献者： {% for chapter in story.chapter_set.all %}
+            <a href="{% url 'author' chapter.writter.username %}">{{ chapter.writter.username }}</a> {% endfor %}
+        </td>
+    </tr>
+    <tr>
+        <td>简介：{{ story.brief }}</td>
+    </tr>
+</table>
+{% endfor %}
+<h2>{{ user.username }}'s Chapters</h2> {% for chapter in user.chapter_set.all %}
+<table class='table'>
+    <tr>
+        <td><a href="{% url 'viewstory' chapter.story.id %}">{{ chapter.story.title }}</a></td>
+    </tr>
+    <tr>
+        <td>章节：{{ chapter.subtitle }}</td>
+    </tr>
+    <tr>
+        <td>
+            <p>正文：{{ chapter.content }}</p>
+        </td>
+    </tr>
+</table>
+{% endfor %} {% endblock %}

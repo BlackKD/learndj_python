@@ -1,0 +1,20 @@
+<!-- Modal -->
+<div class="modal fade"
+     id="{% block dialog_id %}{% endblock %}"
+     tabindex="-1" role="dialog"
+     aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content" style="width:30em">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                        aria-hidden="true">&times;</span></button>
+                <h2>
+                    {% block dialog_name %}{% endblock %}
+                </h2>
+            </div>
+            <div class="modal-body">
+                {% block dialog_form %}{% endblock %}
+            </div>
+        </div>
+    </div>
+</div>
