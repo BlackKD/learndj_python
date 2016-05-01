@@ -12,4 +12,7 @@ class Chapter(models.Model):
     content = models.TextField(default='')
     story = models.ForeignKey(Story, default=None)
     writter = models.ForeignKey(User, default=None)
+    numb = models.TextField(default='')
+    ifallow = models.TextField(default='no')
+
 

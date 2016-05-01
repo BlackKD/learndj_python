@@ -13,6 +13,36 @@
     <tr>
         <td>简介：{{ story.brief }}</td>
     </tr>
+        {% if request.user.username == user.username %}
+    <tr>
+        <td>待审核章节:</td>
+    </tr>
+        {% for chapter in story.chapter_set.all %}
+        {% if chapter.ifallow == 'no' %}
+    <tr>
+        <td>
+                Chapter{{ chapter.numb }}
+                 {{ chapter.subtitle }}
+            <form method="POST" action="{% url 'checkchapter'%}">
+        <input name = "story" value="{{story.id}}" type="hidden" />
+        <input name = "chapter" value="{{chapter.id}}" type="hidden" />
+        {% csrf_token %}
+        <button type="submit">发布</button>
+    </form>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            作者：
+            <a href="{% url 'author' chapter.writter.username %}">{{ chapter.writter.username }}</a>
+        </td>
+    </tr>
+    <tr>
+        <td>{{ chapter.content }}</td>
+    </tr>
+        {% endif %}
+    {% endfor %}
+    {% endif %}
 </table>
 {% endfor %}
 <h2>{{ user.username }}'s Chapters</h2> {% for chapter in user.chapter_set.all %}

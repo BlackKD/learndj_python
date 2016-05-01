@@ -29,3 +29,19 @@ def search(request):
                 author_result.append(author)
         return render(request,'search.html', {'story_result':story_result,'author_result':author_result})
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+def checkchapter(request):
+    if request.method == 'POST':
+        chapterid = request.POST['chapter']
+        storyid = request.POST['story']
+        mychapter = Chapter.objects.get(id=chapterid)
+        mystory = Story.objects.get(id =storyid)
+        mychapter.ifallow = "yes"
+        mychapter.save()
+        nownum = mychapter.numb
+        for chapter in mystory.chapter_set.all():
+            if chapter.numb == nownum and chapter.ifallow =='no':
+                chapter.delete()
+        return redirect(request.META.get('HTTP_REFERER'))
+    return redirect(request.META.get('HTTP_REFERER'))

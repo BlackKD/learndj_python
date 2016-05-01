@@ -20,8 +20,12 @@ def new_chapter(request, id):
     story = Story.objects.get(id=id)
     if request.method == 'POST':
         chapterform = ChapterForm(data=request.POST)
+        i = 0
+        for chapter in story.chapter_set.all():
+            if chapter.ifallow == 'yes':
+                i=i+1
         if chapterform.is_valid():
-            chapterform.save(story,request.user)
+            chapterform.save(story,request.user,i)
         return redirect('viewstory',id)
     return render(request, 'story.html', {'story': story,})
 

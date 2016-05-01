@@ -10,7 +10,8 @@ def signin_view(request):
         username = request.POST['username']
         password = request.POST['password']
         try:
-            user = User.objects.create_user(username,email,password)
+            User.objects.create_user(username,email,password)
+            user = authenticate(username=username, password=password)
             login(request,user)
         except IntegrityError:
             signin_error = {
@@ -20,7 +21,8 @@ def signin_view(request):
                 'error_message': 'user exists'
             }
             return render(request, 'home.html', {'signin_error': signin_error})
-    return redirect(request.META.get('HTTP_REFERER'))
+    #return redirect(request.META.get('HTTP_REFERER'))
+    return render(request, 'home.html')
 
 def login_view(request):
     if request.method == 'POST':
@@ -36,7 +38,7 @@ def login_view(request):
             return render(request,'home.html',{'login_error':login_error})
         else:
             login(request,user)
-    return redirect(request.META.get('HTTP_REFERER'))
+    return render(request, 'home.html')
 
 def logout_view(request):
     logout(request)
